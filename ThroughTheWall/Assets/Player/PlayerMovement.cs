@@ -21,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     GameObject[] grabbableObjects;
     Vector3 moveDir = Vector3.zero;
 
+    float rotX;
+    float rotY;
+
 	CharacterController controller;
 	Animator anim;
     GameObject rightHand;
@@ -152,5 +155,24 @@ public class PlayerMovement : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0, rotY, 0);
         GameObject.FindWithTag("MainCamera").transform.rotation = Quaternion.Euler(rotX, rotY, 0);
+    }
+
+    void Rotation()
+    {
+        rotX -= Input.GetAxis("Mouse Y") * Time.deltaTime * rotSpeed;
+        rotY += Input.GetAxis("Mouse X") * Time.deltaTime * rotSpeed;
+
+        if (rotX < -90)
+        {
+            rotX = -90;
+        }
+
+        else if (rotX > 90)
+        {
+            rotX = 90;
+        }
+
+        transform.rotation = Quaternion.Euler(0, rotY, 0);
+        GameObject.FindWithTag ("MainCamera").transform.rotation = Quaternion.Euler(rotY, rotY, 0);
     }
 }
